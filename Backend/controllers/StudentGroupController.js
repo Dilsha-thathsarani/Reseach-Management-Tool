@@ -41,6 +41,7 @@ export const StudentGroup = async (req, res) => {
     });
 };
 
+// Get all groups
 export const getAllGroup = async (req, res) => {
   await StudentGroupRoute.find()
     .then((groupregisters) => {

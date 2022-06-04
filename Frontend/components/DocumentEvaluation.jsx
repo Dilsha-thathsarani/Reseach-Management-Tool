@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./Styles/styles.css";
 import { useHistory } from "react-router-dom";
+import { Store } from "react-notifications-component";
 
 export default function DocumentEvaluation() {
   const [groupID, setGroupID] = useState();
@@ -16,6 +17,64 @@ export default function DocumentEvaluation() {
   const [Status, setStatus] = useState();
   const history = useHistory();
 
+  //Supervisor, co-supervisor authentication
+  function DocumentAuthenticate() {
+    if (
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+        "Supervisor" &&
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+        "Co-Supervisor"
+    ) {
+      history.push("/allDoc");
+      Store.addNotification({
+        title: "You are not allowed Documentation Evaluation!",
+        message:
+          "You are not allowed to access this page! Please login as Supervisor, Co-Supervisor",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+
+        dismiss: {
+          duration: 3500,
+          onScreen: true,
+          showIcon: true,
+        },
+
+        width: 400,
+      });
+    }
+  }
+
+  //Panel Member authentication
+  function presentationAuthenticate() {
+    if (
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+      "Panel Member"
+    ) {
+      history.push("/allDoc");
+      Store.addNotification({
+        title: "You are not allowed to Presentation Evaluation!",
+        message:
+          "You are not allowed to access this page! Please login as Panel Member",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+
+        dismiss: {
+          duration: 3500,
+          onScreen: true,
+          showIcon: true,
+        },
+
+        width: 400,
+      });
+    }
+  }
+
   useEffect(() => {
     setGroupID(localStorage.getItem("Group_ID"));
     setResearchTopic(localStorage.getItem("rTopic"));
@@ -29,9 +88,12 @@ export default function DocumentEvaluation() {
       localStorage.getItem("DocType") == "Progress Presentation" ||
       localStorage.getItem("DocType") == "Final Presentation"
     ) {
+      setTimeout(() => {
+        presentationAuthenticate();
+      }, 0);
       axios
         .get(
-          `http://localhost:8070/markingScheme/one/${localStorage.getItem(
+          `https://research-management-tool-ym.herokuapp.com/markingScheme/one/${localStorage.getItem(
             "Research_Field"
           )}/${"Presentation"}`
         )
@@ -42,12 +104,33 @@ export default function DocumentEvaluation() {
           setMarkingCriteria(criteria);
         })
         .catch((err) => {
-          alert("Not provide the marking scheme");
+          Store.addNotification({
+            title: "Not found the Marking Schema !",
+            message:
+              "Please contact the system administrator to add the Marking Schema",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+
+            dismiss: {
+              duration: 19500,
+
+              showIcon: true,
+              click: false,
+            },
+
+            width: 500,
+          });
         });
     } else {
+      setTimeout(() => {
+        DocumentAuthenticate();
+      }, 0);
       axios
         .get(
-          `http://localhost:8070/markingScheme/one/${localStorage.getItem(
+          `https://research-management-tool-ym.herokuapp.com/markingScheme/one/${localStorage.getItem(
             "Research_Field"
           )}/${"Document"}`
         )
@@ -58,7 +141,25 @@ export default function DocumentEvaluation() {
           setMarkingCriteria(criteria);
         })
         .catch((err) => {
-          alert("Not provide the marking scheme");
+          Store.addNotification({
+            title: "Not found the Marking Schema !",
+            message:
+              "Please contact the system administrator to add the Marking Schema",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+
+            dismiss: {
+              duration: 19500,
+
+              showIcon: true,
+              click: false,
+            },
+
+            width: 500,
+          });
         });
     }
   }, []);
@@ -94,9 +195,24 @@ export default function DocumentEvaluation() {
     };
 
     await axios
-      .post("http://localhost:8070/evaluation/document", newEvaluation)
+      .post("https://research-management-tool-ym.herokuapp.com/evaluation/document", newEvaluation)
       .then(() => {
-        alert("Evaluation Successful");
+        Store.addNotification({
+          title: "Evaluation Successful",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          type: "default",
+          insert: "top",
+          container: "top-right",
+
+          dismiss: {
+            duration: 1500,
+            onScreen: true,
+            showIcon: true,
+          },
+
+          width: 400,
+        });
       })
       .catch((err) => {
         alert(err);
@@ -108,7 +224,7 @@ export default function DocumentEvaluation() {
 
     //Update document status
     await axios
-      .put(`http://localhost:8070/document/status/${docID}`, Update)
+      .put(`https://research-management-tool-ym.herokuapp.com/document/status/${docID}`, Update)
       .then(() => {
         history.push("/allDoc");
       });

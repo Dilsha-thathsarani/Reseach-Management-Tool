@@ -33,7 +33,7 @@ export default function SubmitTopic()  {
             comment,
         }
 
-        axios.post("http://localhost:8070/topic/",newTopic).then(()=>{
+        axios.post("https://research-management-tool-ym.herokuapp.com/topic/",newTopic).then(()=>{
 
             Store.addNotification({
                 title: "Topic Saved Successfully.",
@@ -77,9 +77,9 @@ export default function SubmitTopic()  {
                 </div>
 
                 <div  className="t-title-container">
-                    <label className="sideLable" style={{color:"#FF5631"}}>Submit </label> <br className="br1" />
-                    <label className="sideLable" >Research</label><br className="br1" />
-                    <label className="sideLable" >Topic </label> <br className="br1" />
+                    <label className="sideLable" style={{color:"#FF5631"}}>Submit </label> <br className="br12" />
+                    <label className="sideLable" style={{marginTop: "-0.5em"}}>Research</label><br  className="br12" />
+                    <label className="sideLable" style={{marginTop: "-0.5em"}}>Topic </label> <br className="br12" />
                 </div>
 
                 <div className="sublable-container">

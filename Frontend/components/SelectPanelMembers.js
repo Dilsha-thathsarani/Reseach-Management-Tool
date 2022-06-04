@@ -20,7 +20,7 @@ export default function SelectMember() {
     },[])
 
     async function getMember(){      
-        await axios.get(`http://localhost:8070/user/panel/${ResearchArea}`).then((res)=>{
+        await axios.get(`https://research-management-tool-ym.herokuapp.com/user/panel/${ResearchArea}`).then((res)=>{
              setRequest(res.data.existingUser);
          }).catch((err)=>{
           })
@@ -48,7 +48,7 @@ export default function SelectMember() {
     
         axios
           .post(
-            "http://localhost:8070/panel/add",
+            "https://research-management-tool-ym.herokuapp.com/panel/add",
              panelMembers
           )
           .then(() => {

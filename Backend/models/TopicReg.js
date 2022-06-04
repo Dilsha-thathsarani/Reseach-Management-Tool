@@ -34,7 +34,7 @@ const TopicRegSchema = new Schema({
 
   comment: {
     type: String,
-    required: true,
+
   },
 
   status: {

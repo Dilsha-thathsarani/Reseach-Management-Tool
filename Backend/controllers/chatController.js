@@ -54,7 +54,7 @@ export const deleteMsg = async (req, res) => {
   const msgID = req.params.id;
   chatForum
     .findByIdAndDelete(msgID)
-    .then((data) => {
+    .then(() => {
       res.status(200).send({ status: "Message  deleted" });
     })
     .catch((err) => {

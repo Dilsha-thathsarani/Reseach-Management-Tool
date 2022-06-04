@@ -1,9 +1,26 @@
 import "./CSS/topicsub.css";
 import "./CSS/btrap.css";
 
-import {MDBAccordion, MDBAccordionItem ,MDBIcon ,MDBInput ,MDBBtn, MDBContainer ,MDBFooter ,MDBCardOverlay,  MDBCardHeader, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdb-react-ui-kit'
-import React, { useState,useEffect } from "react";
-import { useHistory } from 'react-router';
+import {
+  MDBAccordion,
+  MDBAccordionItem,
+  MDBIcon,
+  MDBInput,
+  MDBBtn,
+  MDBContainer,
+  MDBFooter,
+  MDBCardOverlay,
+  MDBCardHeader,
+  MDBCard,
+  MDBCardImage,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
 import {
   MDBAccordion,
@@ -80,9 +97,9 @@ export default function Main() {
                   </button>
                 </a>{" "}
                 <br />
-                <a href="/chat">
+                <a href="/DownloadTemplate">
                   <button className="btn l-btn-accepted main-side-button">
-                    Ask Question
+                    Download Templates
                   </button>
                 </a>
                 <a href="/profile">
@@ -203,8 +220,25 @@ export default function Main() {
                 You can edit the topic details before review.
                 <br />
                 <br />
-                <a href="/TopicList">
+                <a href="/StdTopicList">
                   <button className="btn btn-primary">Topic List</button>
+                </a>
+              </MDBAccordionItem>
+
+              <MDBAccordionItem
+                collapseId={4}
+                headerTitle="Check Submitted Documents"
+              >
+                Students are advised to check their topic status. If your topic
+                has been approved, you will recive an email when the topic has
+                been approved. If your topic has been rejected, you can re
+                register with a different topic. A supervisor will check your
+                research topic and will approve or reject your research topic.
+                You can edit the topic details before review.
+                <br />
+                <br />
+                <a href="/AllSubmitDoc">
+                  <button className="btn btn-primary">View Documents</button>
                 </a>
               </MDBAccordionItem>
             </MDBAccordion>
@@ -349,16 +383,16 @@ export default function Main() {
                   </button>
                 </a>{" "}
                 <br />
-                <a href="/StudentGroup">
+                <a href="/panelmembers">
                   {" "}
                   <button className="btn l-btn-accepted main-side-button">
-                    Create Groups
+                    Assign Pannel Members
                   </button>
                 </a>{" "}
                 <br />
-                <a href="/AllTypes">
+                <a href="/Allcreatetypes">
                   <button className="btn l-btn-accepted main-side-button">
-                    Submission Types
+                    Add Submission Types
                   </button>
                 </a>{" "}
                 <br />
@@ -371,11 +405,6 @@ export default function Main() {
                 <a href="/MarkingList">
                   <button className="btn l-btn-accepted main-side-button">
                     Marking List
-                  </button>
-                </a>
-                <a href="/UploadTemplate">
-                  <button className="btn l-btn-accepted main-side-button">
-                    Templates
                   </button>
                 </a>
               </center>
@@ -464,6 +493,14 @@ export default function Main() {
                 <a href="/allprof">
                   <button className="btn btn-primary">All Profiles</button>
                 </a>
+                <a href="/AllStudentGroup">
+                  <button
+                    style={{ marginLeft: "10px" }}
+                    className="btn btn-primary"
+                  >
+                    All Student Groups
+                  </button>
+                </a>
               </MDBAccordionItem>
               <MDBAccordionItem collapseId={2} headerTitle="Marking Schemes">
                 Admins should create marking schemes for evaluations. Marking
@@ -499,14 +536,6 @@ export default function Main() {
                 <br />
                 <a href="/UploadTemplate">
                   <button className="btn btn-primary">New Template</button>
-                </a>
-                <a href="/SubmitDocs">
-                  <button
-                    style={{ marginLeft: "10px" }}
-                    className="btn btn-primary"
-                  >
-                    Upload Document
-                  </button>
                 </a>
               </MDBAccordionItem>
             </MDBAccordion>
@@ -647,7 +676,7 @@ export default function Main() {
                 </label>
               </center>
               <center>
-                <a href="/AcceptTopic">
+                <a href="/TopicList">
                   {" "}
                   <button className="btn l-btn-accepted main-side-button">
                     Topic Review
@@ -661,7 +690,7 @@ export default function Main() {
                   </button>
                 </a>{" "}
                 <br />
-                <a href="/chat">
+                <a href="/chatgroup">
                   <button className="btn l-btn-accepted main-side-button">
                     Go to Chat
                   </button>
@@ -1246,11 +1275,17 @@ export default function Main() {
                     Evaluate Topic
                   </button>
                 </a>{" "}
+                <a href="/EvaluatedTopicList">
+                  {" "}
+                  <button className="btn l-btn-accepted main-side-button">
+                    Evaluated Topics
+                  </button>
+                </a>{" "}
                 <br />
                 <a href="/allDoc">
                   {" "}
                   <button className="btn l-btn-accepted main-side-button">
-                    Evaluate presentation
+                    Evaluate Document / presentation
                   </button>
                 </a>{" "}
                 <br />

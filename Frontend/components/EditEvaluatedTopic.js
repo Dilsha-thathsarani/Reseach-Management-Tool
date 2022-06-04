@@ -63,7 +63,7 @@ export default function EvaluateTopic()  {
         setEvaluation(localStorage.getItem('Evaluation'));
         setid(localStorage.getItem('ID'));
 
-        const path = "http://localhost:8070/topic/group/"+localStorage.getItem('groupID');
+        const path = "https://research-management-tool-ym.herokuapp.com/topic/group/"+localStorage.getItem('groupID');
         console.log(path);
 
         
@@ -97,7 +97,7 @@ export default function EvaluateTopic()  {
             Evaluation,
         }
 
-        let path = "http://localhost:8070/evaluatedTopic/"+id;
+        let path = "https://research-management-tool-ym.herokuapp.com/evaluatedTopic/"+id;
 
         axios.put(path,newTopic).then(()=>{
 
@@ -125,8 +125,29 @@ export default function EvaluateTopic()  {
     
             alert(err);
          })
+         document.getElementById("subBut").click();
          
 
+    }
+
+    function sendEmail(e) {
+        e.preventDefault();
+
+        emailjs
+                .sendForm(
+                    'service_tc03vnm',
+                    'template_ajm9ro9',
+                    e.currentTarget,
+                    '-utNmr2eLLLW4jLyR'
+                )
+                .then(
+                    (result) => {
+                    console.log("Mail Sent");
+                    },
+                    (error) => {
+                    console.log(error.text);
+                    }
+                );
     }
 
     return(
@@ -227,6 +248,12 @@ export default function EvaluateTopic()  {
 
 
                         <button type="submit" className="btn btn-primary" style={{backgroundColor:"#0F0934",width:"200px",fontWeight:"bold",marginLeft:"45%"}} >Submit</button>
+                    </form>
+
+                    <form onSubmit={sendEmail}>
+                            <input type="hidden" name="mail" value={request.leaderEmail} />
+                            <input type="hidden" name="message" value={Evaluation} />
+                            <button hidden id="subBut">Send Email</button>
                     </form>
 
                     <div className="bottom-t-container">

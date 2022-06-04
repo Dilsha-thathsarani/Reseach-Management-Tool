@@ -57,10 +57,10 @@ const handleSubmit = async e => {
   const newuser= {name, email, password,mobile,user_role,research_area,reg_number}
   if(document.getElementById('user_role').value =="Student"){
   try {
-    await axios.post('http://localhost:8070/user/register', newuser);
-      setUser({...user, err: '', success: 'Registration successful. Please login.'})
-      //setUser({...user, err:'', success: res.data.msg})
-      window.location.href = "/login"
+
+    await axios.post('https://research-management-tool-ym.herokuapp.com/user/register', newuser);
+    setUser({...user, err: '', success: 'Registration successful. Please login.'})
+    window.location.href = "/login"
 
   } catch (err) {
       err.response.data.msg && 
@@ -69,7 +69,7 @@ const handleSubmit = async e => {
     try {
         await axios.post('http://localhost:8070/pendinguser/pendingregister', newuser);
         setUser({...user, err:'', success: "Registered Successfully! Please wait for the admin to approve your account."})
-       // alert("Registered Successfully! Please wait for the admin to approve your account.")
+        alert("Registered Successfully! Please wait for the admin to approve your account.")
         window.location.href = "/login"
   
     } catch (err) {

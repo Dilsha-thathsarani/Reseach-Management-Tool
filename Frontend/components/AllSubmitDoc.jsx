@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CSS/st.css";
 import "./CSS/stgrup.css";
+import { style } from "@mui/system";
 
 export default function AllSubmitDoc() {
   const [type, setType] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8070/document")
+      .get(
+        `https://research-management-tool-ym.herokuapp.com/document/student/${
+          JSON.parse(localStorage.getItem("user")).email
+        }`
+      )
       .then((res) => {
         setType(res.data);
         console.log(res.data);
@@ -64,7 +69,22 @@ export default function AllSubmitDoc() {
                         <td scope="col">
                           <b>Status</b>
                         </td>
-                        <td scope="col">{data.Status}</td>
+                        {console.log(
+                          "68",
+                          data.Status,
+                          "chk ",
+                          data.Status == "Pending"
+                        )}
+                        {data.Status == "Pending" ? (
+                          <td scope="col">{data.Status}</td>
+                        ) : (
+                          <td
+                            scope="col"
+                            style={{ backgroundColor: "#fefe33" }}
+                          >
+                            {data.Status}
+                          </td>
+                        )}
                       </tr>
                       <tr>
                         <td scope="col">

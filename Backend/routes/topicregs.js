@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import TopicReg from "../models/TopicReg.js";
+
 import {
   addTopic,
   getAllTopic,

@@ -96,6 +96,11 @@ input{
     margin-bottom: -2em;
 }
 
+.br1{
+    display: block;
+    margin-bottom: -2em;
+}
+
 .subLable{
     color:#B7B5C2; 
 }
@@ -259,7 +264,8 @@ input{
 }
 
 .m-select{
-    font-size: 0.6rem; 
+    font-size: 0.6rem;
+    color:#0F0934; 
 }
 
 

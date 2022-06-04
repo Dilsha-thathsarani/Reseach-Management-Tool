@@ -3,6 +3,7 @@ import axios from "axios";
 import { ClassNames } from "@emotion/react";
 import "./CSS/st.css";
 import "./CSS/stgrup.css";
+import { Store } from "react-notifications-component";
 
 export default function StudentGroup() {
   const [Group_Leader_Name, setGroupLeaderName] = useState("");
@@ -39,9 +40,25 @@ export default function StudentGroup() {
     };
 
     axios
-      .post("http://localhost:8070/stdGroup", newGroup)
+      .post("https://research-management-tool-ym.herokuapp.com/stdGroup", newGroup)
       .then(() => {
-        alert("Added New Submit Type");
+        Store.addNotification({
+          title: "Group Saved Successfully.",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          type: "success",
+          insert: "top",
+          container: "top-right",
+
+          dismiss: {
+            duration: 1500,
+            onScreen: true,
+            showIcon: true,
+          },
+
+          width: 400,
+        });
+
         e.target.reset(); // to clear input fiels after submission
       })
       .catch((err) => {

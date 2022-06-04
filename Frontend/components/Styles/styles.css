@@ -10,6 +10,14 @@
   padding: 70px 150px;
 }
 
+.img-side{
+  position: inline;
+  width: 150px;
+  height: 150px;
+  margin-left: -110px;
+  margin-top: -80px;
+}
+
 .right_container {
   background-color: #ffffff;
   color: black;
@@ -185,6 +193,18 @@ tr {
   background-color: #00a592 !important;
   transition: all 0.7s;
 }
+
+.btn_reply {
+  background-color: #0f0934 !important;
+  color: #ffff;
+  width: 100px;
+}
+
+.btn_reply:hover {
+  color: #000 !important;
+  background-color: #00a592 !important;
+  transition: all 0.7s;
+}
 .btn_submit {
   background-color: #0f0934 !important;
   color: #ffffff;
@@ -213,4 +233,38 @@ tr {
   outline: none;
   border: none;
   background-color: #0f0934;
+}
+
+.modal {
+  font-size: 12px;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
 }

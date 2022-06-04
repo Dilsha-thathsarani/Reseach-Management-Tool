@@ -5,6 +5,7 @@ const UploadTemplateSchema = new Schema(
   {
     AdminName: {
       type: String,
+      required: true,
     },
 
     SchemaType: {
@@ -13,6 +14,14 @@ const UploadTemplateSchema = new Schema(
 
     Title: {
       type: String,
+      required: true,
+    },
+
+    DeadlineDate: {
+      type: Date,
+    },
+    DeadlineTime: {
+      type: "String",
     },
 
     Template: {
@@ -21,6 +30,7 @@ const UploadTemplateSchema = new Schema(
 
     Description: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }

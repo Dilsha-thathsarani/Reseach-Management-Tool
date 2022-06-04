@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
 import { NotFound } from "./components/utils/NotFound/NotFound.js";
 import UploadTemplate from "./components/UploadTemplate";
-import SubmitTypes from "./components/SubmitTypes";
+
 import SubmitTopic from "./components/SubmitTopic";
 import EvaluateTopic from "./components/EvlauateTopic";
 import AcceptTopic from "./components/AcceptTopic";
@@ -19,7 +19,6 @@ import { ReactNotifications } from "react-notifications-component";
 
 import SubmitDocs from "./components/SubmitDocs";
 import AllStudentGroup from "./components/AllStudentGroup";
-import AllTypes from "./components/AllTypes";
 
 import AllCreateTypes from "./components/AllCreateTypes";
 
@@ -27,11 +26,11 @@ import MarkingList from "./components/MarkingList";
 import EditMarking from "./components/EditMarking";
 import EvaluatedTopicList from "./components/EvaluatedTopicList";
 import EditEvaluatedTopic from "./components/EditEvaluatedTopic";
-import SubmitTypes from "./components/SubmitTypes.jsx";
+
 import DocumentEvaluation from "./components/DocumentEvaluation";
 import AllDocuments from "./components/AllDocuments";
 import RequestCoSupervisor from "./components/RequestCoSupervisor";
-import UpdateUploadTemplate from "./components/UpdateUploadTemplate";
+
 import DownloadTemplate from "./components/DownloadTemplate";
 
 import StudentGroup from "./components/StudentGroup";
@@ -40,7 +39,6 @@ import UploadTemplate from "./components/UploadTemplate";
 import AllSubmitDoc from "./components/AllSubmitDoc";
 import chatForum from "./components/chatForum";
 import chatGroupSupervisor from "./components/chatGroupSupervisor";
-import MsgReplyForm from "./components/MsgReplyForm";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -50,8 +48,47 @@ import AllUsers from "./components/AllUsers";
 import PanelMembers from "./components/CheckPanelMembers";
 import SelectPanelMembers from "./components/SelectPanelMembers";
 import AcceptRequest from "./components/AcceptRequest.js";
+import Header from "./components/Header";
 
 function App() {
+  const [token, setToken] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [issupervisor, setIsSupervisor] = useState(false);
+  const [ispanelmember, setIsPanelMember] = useState(false);
+  const [iscosupervisor, setIsCoSupervisor] = useState(false);
+
+  const refreshToken = async () => {
+    const res = localStorage.getItem("userAuthToken");
+    setToken(res);
+  };
+  useEffect(() => {
+    const firstLogin = localStorage.getItem("firstLogin");
+    if (firstLogin) refreshToken();
+
+    if (token) {
+      const getUser = async () => {
+        try {
+          const res = JSON.parse(localStorage.getItem("user")).user_role;
+
+          setIsLogged(true);
+          res == "Admin" ? setIsAdmin(true) : setIsAdmin(false);
+          res == "Panel Member"
+            ? setIsPanelMember(true)
+            : setIsPanelMember(false);
+          res == "Supervisor" ? setIsSupervisor(true) : setIsSupervisor(false);
+          res == "Co-Supervisor"
+            ? setIsCoSupervisor(true)
+            : setIsCoSupervisor(false);
+        } catch (err) {
+          alert(err.response.data.msg);
+        }
+      };
+
+      getUser();
+    }
+  }, [token]);
+
 
   const [token, setToken] = useState(false)
   const [isLogged, setIsLogged] = useState(false)
@@ -102,15 +139,20 @@ const logout=async ()=>{
   setIsCoSupervisor(false)
 }
  
+
+
   return (
     <div>
+      <Header />
       <ReactNotifications />
       <Router>
+        <Route path="/" exact component={Main} />
 
-        <Route path="/"  exact component={Main} />
-  
-        <Route path="/updateadmin/:id" exact component={isAdmin? ProfileUpdate: NotFound} />
- 
+        <Route
+          path="/updateadmin/:id"
+          exact
+          component={isAdmin ? ProfileUpdate : NotFound}
+        />
 
         <Route
           path="/profile"
@@ -120,12 +162,12 @@ const logout=async ()=>{
         <Route
           path="/panelmembers"
           exact
-          component={isAdmin ? PanelMembers: NotFound }
+          component={isAdmin ? PanelMembers : NotFound}
         />
         <Route
           path="/selectpanel"
           exact
-          component={isAdmin ? SelectPanelMembers: NotFound }
+          component={isAdmin ? SelectPanelMembers : NotFound}
         />
         <Route
           path="/allprof"
@@ -146,22 +188,23 @@ const logout=async ()=>{
         <Route path="/EditTopic" component={EditTopic} />
         <Route path="/SubmitDocs" component={SubmitDocs} />
         <Route path="/AllStudentGroup" component={AllStudentGroup} />
-        <Route path="/AllTypes" component={AllTypes} />
         <Route path="/AllCreateTypes" component={AllCreateTypes} />
         <Route path="/MarkingList" component={MarkingList} />
         <Route path="/EditMarking" component={EditMarking} />
-        <Route path="/Main" component={Main} />
-        <Route path="/SubmitTypes" component={SubmitTypes} />
-        <Route exact path="/doc" component={DocumentEvaluation} />
+        <Route path="/doc" exact component={DocumentEvaluation} />
         <Route path="/allDoc" component={AllDocuments} />
-        <Route path="/reqCoSuper" component={RequestCoSupervisor} />
-        <Route path="/UpdateTemplate" component={UpdateUploadTemplate} />
+        <Route
+          path="/reqCoSuper"
+          exact
+          component={isLogged ? RequestCoSupervisor : Login}
+        />
+
         <Route path="/DownloadTemplate" component={DownloadTemplate} />
         <Route path="/StudentGroup" component={StudentGroup} />
         <Route path="/UploadTemplate" component={UploadTemplate} />
-        <Route path="/chat" component={chatForum} />
-        <Route path="/chatGroup" component={chatGroupSupervisor} />
-        <Route path="/reply" component={MsgReplyForm} />
+        <Route path="/chat" exact component={isLogged ? chatForum : Login} />
+        <Route path="/chatGroup" exact component={chatGroupSupervisor} />
+
         <Route path="/AllSubmitDoc" component={AllSubmitDoc} />
       </Router>
     </div>

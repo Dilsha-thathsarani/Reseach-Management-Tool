@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, Button } from "react-bootstrap";
+import { Store } from "react-notifications-component";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function chatForum() {
   // const [groupID, setGroupID] = useState();
@@ -21,7 +23,7 @@ export default function chatForum() {
     //get group _id and leader's email by student email
     const emailID = axios
       .get(
-        `http://localhost:8070/stdGroup/${
+        `https://research-management-tool-ym.herokuapp.com/stdGroup/${
           JSON.parse(localStorage.getItem("user")).email
         }`
       )
@@ -36,7 +38,7 @@ export default function chatForum() {
   const getAllMsg = async () => {
     //get messages from db
     const allChat = await axios
-      .get(`http://localhost:8070/chat/${group_id}`)
+      .get(`https://research-management-tool-ym.herokuapp.com/chat/${group_id}`)
       .then((res) => {
         setAllMsg(res.data);
       })
@@ -46,7 +48,7 @@ export default function chatForum() {
   const getAllReply = async () => {
     //get messages from db
     const allReplys = await axios
-      .get(`http://localhost:8070/chatReplies/group/replyMsgs`)
+      .get(`https://research-management-tool-ym.herokuapp.com/chatReplies/group/replyMsgs`)
       .then((res) => {
         setReplyMsg(res.data);
       })
@@ -60,7 +62,7 @@ export default function chatForum() {
     let ans = window.confirm("Do you want to delete this request ?");
 
     if (ans) {
-      await axios.delete(`http://localhost:8070/chat/${id}`).then((res) => {
+      await axios.delete(`https://research-management-tool-ym.herokuapp.com/chat/${id}`).then((res) => {
         console.log(res);
       });
     }
@@ -71,7 +73,7 @@ export default function chatForum() {
   const handleNewMessage = async (e) => {
     e.preventDefault();
     await axios
-      .get(`http://localhost:8070/topic/groupID/${leaderEmail}`)
+      .get(`https://research-management-tool-ym.herokuapp.com/topic/groupID/${leaderEmail}`)
       .then((res) => {
         groupID = res.data;
       })
@@ -89,13 +91,29 @@ export default function chatForum() {
     };
     console.log("newMessage", newMessage);
     //send message to the db
-    await axios.post(`http://localhost:8070/chat/`, newMessage).then(() => {
-      alert("message send successfully");
+    await axios.post(`https://research-management-tool-ym.herokuapp.com/chat/`, newMessage).then(() => {
+      Store.addNotification({
+        title: "message send successfully",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        type: "default",
+        insert: "top",
+        container: "top-right",
+
+        dismiss: {
+          duration: 1500,
+          onScreen: true,
+          showIcon: true,
+        },
+
+        width: 400,
+      });
+
       e.target.reset();
     });
 
     //get messages from db
-    // axios.get(`http://localhost:8070/chat/${group_id}`).then((res) => {
+    // axios.get(`https://research-management-tool-ym.herokuapp.com/chat/${group_id}`).then((res) => {
     //   setAllMsg(res.data);
     //   console.log(res.data);
     // });
@@ -149,7 +167,7 @@ export default function chatForum() {
       <div className="right_container">
         {allMsg?.map((allMsg, index) => (
           <div key={index}>
-            <Card className="mb-3 mt-5">
+            <Card className="mb-3 mt-5" style={{ backgroundColor: "#918CAB" }}>
               <Card.Header>{allMsg.stdName}</Card.Header>
               <Card.Body>
                 <Card.Title>{allMsg.subject}</Card.Title>
@@ -157,13 +175,37 @@ export default function chatForum() {
                   <p>{allMsg.createdAt}</p>
                   {allMsg.message}
                 </Card.Text>
-                <div className="modal-footer">
-                  <Button
+                <div style={{ marginLeft: "550px" }}>
+                  <a
+                    type="number"
+                    min="0"
+                    max="25"
+                    className="form-control "
+                    style={{
+                      width: "70px",
+                      backgroundColor: "#918CAB",
+                      border: "none",
+                    }}
+                    onClick={(e) => deleteReply(e, replyMsg._id)}
+                  >
+                    <DeleteForeverIcon
+                      fontSize="large"
+                      sx={{
+                        "&:hover": {
+                          color: "red",
+                        },
+                        color: "#BB2D3B",
+                        disabled: false,
+                      }}
+                    />
+                  </a>
+                  {/* <Button
                     variant="danger"
                     onClick={(e) => deleteMsg(e, allMsg._id)}
+                    style={{ marginLeft: "500px" }}
                   >
                     Delete
-                  </Button>
+                  </Button> */}
                 </div>
               </Card.Body>
             </Card>

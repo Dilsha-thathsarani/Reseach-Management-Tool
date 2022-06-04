@@ -118,7 +118,7 @@ export default function EditMarking()  {
                 criteria,
             };
 
-            axios.put(`http://localhost:8070/markingscheme/${id}`,updateMarking).then(()=>{
+            axios.put(`https://research-management-tool-ym.herokuapp.com/markingscheme/${id}`,updateMarking).then(()=>{
 
                 Store.addNotification({
                     title: "Marking Scheme Updated Successfully.",
@@ -197,7 +197,7 @@ export default function EditMarking()  {
 
         let text = "Are you sure you want to delete?";
         if (confirm(text) == true) {
-            axios.delete(`http://localhost:8070/markingscheme/${id}`).then(()=>{
+            axios.delete(`https://research-management-tool-ym.herokuapp.com/markingscheme/${id}`).then(()=>{
 
                 Store.addNotification({
                     title: "Marking Scheme deleted successfully",

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ClassNames } from "@emotion/react";
 import "./CSS/st.css";
-// import "./CSS/link.css";
 
 import { useHistory } from "react-router-dom";
 
@@ -13,7 +12,7 @@ export default function DownloadTemplate() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/template")
+      .get("https://research-management-tool-ym.herokuapp.com/template")
       .then((res) => {
         setTypes(res.data);
         console.log(res.data);
@@ -27,14 +26,9 @@ export default function DownloadTemplate() {
     console.log("data", data);
 
     let { SchemaType } = data;
-    //     localStorage.setItem("AdminName", AdminName);
 
     localStorage.setItem("SchemaType", SchemaType);
-    //     localStorage.setItem("Title", Title);
-    //     localStorage.setItem("Template", Template);
-    //     localStorage.setItem("Description", Description);
 
-    //     console.log(data);
     history.push("/SubmitDocs");
   };
   return (
@@ -50,15 +44,6 @@ export default function DownloadTemplate() {
             </div>
           </div>
           <div className="mt-3" style={{ backgroundColor: "white" }}>
-            {/* <div className="t-list-head-container">
-              <label className="h-text" style={{ color: "#FF5631" }}>
-                {" "}
-                RESEARCH PROJECT
-              </label>{" "}
-              <br className="br1" />
-              <label className="h-text"></label>
-            </div> */}
-
             <div
               className="ms-5 mt-3 me-5"
               style={{ backgroundColor: "#C4C4C4", height: "30px" }}
@@ -134,6 +119,17 @@ export default function DownloadTemplate() {
                   <div className="mb-1 " style={{ marginLeft: "15px" }}>
                     <label className="t-form-label">
                       <h6>{data.Description}</h6>
+                    </label>
+                  </div>
+
+                  <div className="mb-1 " style={{ marginLeft: "15px" }}>
+                    <label className="t-form-label">
+                      <h6 style={{ backgroundColor: "#fefe33" }}>
+                        {" "}
+                        <b>DEADLINE :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {data.DeadlineDate} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {data.DeadlineTime}
+                      </h6>
                     </label>
                   </div>
                 </div>

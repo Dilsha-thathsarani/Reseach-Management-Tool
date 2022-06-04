@@ -2,13 +2,51 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./Styles/styles.css";
 import { useHistory } from "react-router";
+import { Store } from "react-notifications-component";
 
 export default function AllDocuments() {
   const [docList, setDocList] = useState([]);
   const history = useHistory();
+
+  //User authentication
+  function authenticate() {
+    if (
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+        "Supervisor" &&
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+        "Co-Supervisor" &&
+      JSON.parse(localStorage.getItem("user") || "[]").user_role !=
+        "Panel Member"
+    ) {
+      history.push("/login");
+      Store.addNotification({
+        title: "You are not allowed!",
+        message:
+          "You are not allowed to access this page! Please login as Supervisor, Co-Supervisor or Panel Member",
+        animationIn: ["animate_animated", "animate_fadeIn"],
+        animationOut: ["animate_animated", "animate_fadeOut"],
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+
+        dismiss: {
+          duration: 3500,
+          onScreen: true,
+          showIcon: true,
+        },
+
+        width: 400,
+      });
+    }
+  }
+
   useEffect(() => {
+    setTimeout(() => {
+      authenticate();
+    }, 0);
+
     axios
-      .get(`http://localhost:8070/document/`)
+      .get(`https://research-management-tool-ym.herokuapp.com/document/`)
       .then((res) => {
         setDocList(res.data);
         console.log(res.data);
@@ -28,7 +66,12 @@ export default function AllDocuments() {
     localStorage.setItem("Link", Document);
     localStorage.setItem("DocType", DocType);
     localStorage.setItem("DocID", _id);
-    history.push("/Doc");
+    if (data.DocType == "Topic Details Document") {
+      history.push("/EvaluateTopic");
+    } else {
+      history.push("/Doc");
+    }
+    h;
   };
 
   return (
@@ -43,7 +86,7 @@ export default function AllDocuments() {
             SUBMITTED
           </label>
           <br />
-          <label className="h-text">RESEARCH DOCUMENTS</label>
+          <label className="h-text">RESEARCH DOCUMENTS / PRESENTATIONS</label>
         </div>
         <div className="allDoc_box mb-5 ">
           <table className="table table-hover table-borderless">
@@ -69,14 +112,23 @@ export default function AllDocuments() {
                 <tr key={index} className="" style={{ height: "80px" }}>
                   <td>{docList.GroupID}</td>
                   <td>{docList.ResearchField}</td>
-                  <td>{docList.DocType}</td>
+                  {docList.DocType == "Proposal Presentation" ||
+                  docList.DocType == "Progress Presentation" ||
+                  docList.DocType == "Final Presentation" ? (
+                    <td className=" fw-bold" style={{ color: "blue" }}>
+                      {docList.DocType}
+                    </td>
+                  ) : (
+                    <td className=" fw-bold">{docList.DocType}</td>
+                  )}
+
                   <td>{docList.Comment}</td>
-                  {docList.Status == "pending" ? (
+                  {docList.Status == "Pending" ? (
                     <td className="text-danger fw-bold">{docList.Status}</td>
                   ) : (
                     <td className="text-success fw-bold">{docList.Status}</td>
                   )}
-                  {docList.Status == "pending" ? (
+                  {docList.Status == "Pending" ? (
                     <td>
                       <button
                         type="submit"
