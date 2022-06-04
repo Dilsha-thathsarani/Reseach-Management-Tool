@@ -55,7 +55,7 @@ export default function chatGroupSupervisor() {
     //get messages from db
     const getAllMsg = async () => {
       const allChat = await axios
-        .get(`http://localhost:8070/chat/`)
+        .get(`https://research-management-tool-ym.herokuapp.com/chat/`)
         .then((res) => {
           setAllMsg(res.data);
         })
@@ -65,7 +65,7 @@ export default function chatGroupSupervisor() {
     //get replies from db
     const getAllReply = async () => {
       const allReplys = await axios
-        .get(`http://localhost:8070/chatReplies/group/replyMsgs`)
+        .get(`https://research-management-tool-ym.herokuapp.com/chatReplies/group/replyMsgs`)
         .then((res) => {
           setReplyMsg(res.data);
         })
@@ -83,7 +83,7 @@ export default function chatGroupSupervisor() {
     let ans = window.confirm("Do you want to delete this message ?");
 
     if (ans) {
-      await axios.delete(`http://localhost:8070/chat/${id}`).then((res) => {
+      await axios.delete(`https://research-management-tool-ym.herokuapp.com/chat/${id}`).then((res) => {
         console.log(res);
         window.location.reload(false);
       });
@@ -99,7 +99,7 @@ export default function chatGroupSupervisor() {
 
     if (ans) {
       await axios
-        .delete(`http://localhost:8070/chatReplies/${id}`)
+        .delete(`https://research-management-tool-ym.herokuapp.com/chatReplies/${id}`)
         .then((res) => {
           console.log(res);
           window.location.reload(false);
@@ -123,7 +123,7 @@ export default function chatGroupSupervisor() {
     console.log("userSup", userSup);
 
     await axios
-      .post(`http://localhost:8070/chatReplies`, {
+      .post(`https://research-management-tool-ym.herokuapp.com/chatReplies`, {
         userSup,
         messageID,
         message,
@@ -136,7 +136,12 @@ export default function chatGroupSupervisor() {
   return (
     <div className="allDoc_body_container">
       {/*left side column */}
-      <div className="left_container"></div>
+        
+      <div className="left_container">
+        <div>
+          <img className="img-side" src="https://res.cloudinary.com/sliit-yasantha/image/upload/v1653068950/logo11_ggebb3.png"></img>
+        </div>
+      </div>
 
       {/* Popup modal */}
       <Modal centered size="lg" isOpen={modal} toggle={() => setModal(!modal)}>

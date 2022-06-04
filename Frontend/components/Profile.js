@@ -39,7 +39,7 @@ export default function Profile() {
   useEffect(() => {
     async function getUser() {
       await axios
-        .get(`http://localhost:8070/user/infor/${user._id}`)
+        .get(`https://research-management-tool-ym.herokuapp.com/user/infor/${user._id}`)
         .then((res) => {
           localStorage.setItem("user", JSON.stringify(res.data));
           setUser(JSON.parse(localStorage.getItem("user")));
@@ -96,7 +96,7 @@ export default function Profile() {
 
   async function updateInfor() {
     try {
-      axios.patch(`http://localhost:8070/user/update/${user._id}`, {
+      axios.patch(`https://research-management-tool-ym.herokuapp.com/user/update/${user._id}`, {
         name: name ? name : user.name,
         email: email ? email : user.email,
         avatar: avatar ? avatar : user.avatar,

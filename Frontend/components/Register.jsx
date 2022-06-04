@@ -56,7 +56,7 @@ const handleSubmit = async e => {
 
   const newuser= {name, email, password,mobile,user_role,research_area,reg_number}
   try {
-    await axios.post('http://localhost:8070/user/register', newuser);
+    await axios.post('https://research-management-tool-ym.herokuapp.com/user/register', newuser);
       
       alert("Account Created Successfully!")
       history.push(`/login`)

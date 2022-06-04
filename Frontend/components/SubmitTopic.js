@@ -33,7 +33,7 @@ export default function SubmitTopic()  {
             comment,
         }
 
-        axios.post("http://localhost:8070/topic/",newTopic).then(()=>{
+        axios.post("https://research-management-tool-ym.herokuapp.com/topic/",newTopic).then(()=>{
 
             Store.addNotification({
                 title: "Topic Saved Successfully.",

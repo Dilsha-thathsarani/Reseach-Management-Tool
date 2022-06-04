@@ -93,7 +93,7 @@ export default function DocumentEvaluation() {
       }, 0);
       axios
         .get(
-          `http://localhost:8070/markingScheme/one/${localStorage.getItem(
+          `https://research-management-tool-ym.herokuapp.com/markingScheme/one/${localStorage.getItem(
             "Research_Field"
           )}/${"Presentation"}`
         )
@@ -130,7 +130,7 @@ export default function DocumentEvaluation() {
       }, 0);
       axios
         .get(
-          `http://localhost:8070/markingScheme/one/${localStorage.getItem(
+          `https://research-management-tool-ym.herokuapp.com/markingScheme/one/${localStorage.getItem(
             "Research_Field"
           )}/${"Document"}`
         )
@@ -195,7 +195,7 @@ export default function DocumentEvaluation() {
     };
 
     await axios
-      .post("http://localhost:8070/evaluation/document", newEvaluation)
+      .post("https://research-management-tool-ym.herokuapp.com/evaluation/document", newEvaluation)
       .then(() => {
         Store.addNotification({
           title: "Evaluation Successful",
@@ -224,7 +224,7 @@ export default function DocumentEvaluation() {
 
     //Update document status
     await axios
-      .put(`http://localhost:8070/document/status/${docID}`, Update)
+      .put(`https://research-management-tool-ym.herokuapp.com/document/status/${docID}`, Update)
       .then(() => {
         history.push("/allDoc");
       });

@@ -138,7 +138,7 @@ export default function AddMarking()  {
             criteria,
         };
 
-        axios.post("http://localhost:8070/markingScheme/",newMarking).then(()=>{
+        axios.post("https://research-management-tool-ym.herokuapp.com/markingScheme/",newMarking).then(()=>{
 
             Store.addNotification({
                 title: "Marking Scheme Saved Successfully.",

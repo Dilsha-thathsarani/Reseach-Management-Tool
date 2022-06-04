@@ -101,7 +101,7 @@ export default function AcceptTopic()  {
 
     if (ans) {
       await axios
-        .put(`http://localhost:8070/topic/${id}`, updateTopic)
+        .put(`https://research-management-tool-ym.herokuapp.com/topic/${id}`, updateTopic)
         .then(() => {
           Store.addNotification({
             title: "Status Updated Successfully.",

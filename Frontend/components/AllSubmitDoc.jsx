@@ -9,7 +9,7 @@ export default function AllSubmitDoc() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8070/document/student/${
+        `https://research-management-tool-ym.herokuapp.com/document/student/${
           JSON.parse(localStorage.getItem("user")).email
         }`
       )

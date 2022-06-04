@@ -46,7 +46,7 @@ export default function AllDocuments() {
     }, 0);
 
     axios
-      .get(`http://localhost:8070/document/`)
+      .get(`https://research-management-tool-ym.herokuapp.com/document/`)
       .then((res) => {
         setDocList(res.data);
         console.log(res.data);

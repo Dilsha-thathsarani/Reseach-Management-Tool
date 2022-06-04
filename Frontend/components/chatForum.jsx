@@ -23,7 +23,7 @@ export default function chatForum() {
     //get group _id and leader's email by student email
     const emailID = axios
       .get(
-        `http://localhost:8070/stdGroup/${
+        `https://research-management-tool-ym.herokuapp.com/stdGroup/${
           JSON.parse(localStorage.getItem("user")).email
         }`
       )
@@ -38,7 +38,7 @@ export default function chatForum() {
   const getAllMsg = async () => {
     //get messages from db
     const allChat = await axios
-      .get(`http://localhost:8070/chat/${group_id}`)
+      .get(`https://research-management-tool-ym.herokuapp.com/chat/${group_id}`)
       .then((res) => {
         setAllMsg(res.data);
       })
@@ -48,7 +48,7 @@ export default function chatForum() {
   const getAllReply = async () => {
     //get messages from db
     const allReplys = await axios
-      .get(`http://localhost:8070/chatReplies/group/replyMsgs`)
+      .get(`https://research-management-tool-ym.herokuapp.com/chatReplies/group/replyMsgs`)
       .then((res) => {
         setReplyMsg(res.data);
       })
@@ -62,7 +62,7 @@ export default function chatForum() {
     let ans = window.confirm("Do you want to delete this request ?");
 
     if (ans) {
-      await axios.delete(`http://localhost:8070/chat/${id}`).then((res) => {
+      await axios.delete(`https://research-management-tool-ym.herokuapp.com/chat/${id}`).then((res) => {
         console.log(res);
       });
     }
@@ -73,7 +73,7 @@ export default function chatForum() {
   const handleNewMessage = async (e) => {
     e.preventDefault();
     await axios
-      .get(`http://localhost:8070/topic/groupID/${leaderEmail}`)
+      .get(`https://research-management-tool-ym.herokuapp.com/topic/groupID/${leaderEmail}`)
       .then((res) => {
         groupID = res.data;
       })
@@ -91,7 +91,7 @@ export default function chatForum() {
     };
     console.log("newMessage", newMessage);
     //send message to the db
-    await axios.post(`http://localhost:8070/chat/`, newMessage).then(() => {
+    await axios.post(`https://research-management-tool-ym.herokuapp.com/chat/`, newMessage).then(() => {
       Store.addNotification({
         title: "message send successfully",
         animationIn: ["animate__animated", "animate__fadeIn"],
@@ -113,7 +113,7 @@ export default function chatForum() {
     });
 
     //get messages from db
-    // axios.get(`http://localhost:8070/chat/${group_id}`).then((res) => {
+    // axios.get(`https://research-management-tool-ym.herokuapp.com/chat/${group_id}`).then((res) => {
     //   setAllMsg(res.data);
     //   console.log(res.data);
     // });

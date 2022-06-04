@@ -41,7 +41,7 @@ export default function AllStudentGroup() {
       authenticate();
     }, 0);
     axios
-      .get("http://localhost:8070/stdGroup")
+      .get("https://research-management-tool-ym.herokuapp.com/stdGroup")
       .then((res) => {
         setGroups(res.data);
       })

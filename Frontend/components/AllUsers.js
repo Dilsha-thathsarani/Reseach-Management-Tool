@@ -11,7 +11,7 @@ export default function AllUsers() {
     const[request,setRequest] = useState([]); 
     useEffect(()=>{
               
-        axios.get("http://localhost:8070/user/allprof").then((res)=>{
+        axios.get("https://research-management-tool-ym.herokuapp.com/user/allprof").then((res)=>{
                 setRequest(res.data.existingUser);
             }).catch((err)=>{
                 alert(err.message);
@@ -24,7 +24,7 @@ export default function AllUsers() {
    
       let ans = window.confirm("Are you sure want to delete user account?");
       if(ans){  
-      axios.delete(`http://localhost:8070/user/delete/${id}`).then((res)=>{
+      axios.delete(`https://research-management-tool-ym.herokuapp.com/user/delete/${id}`).then((res)=>{
           alert("Profile Successfully Deleted");
           window.location.reload(false);
           }).catch((err)=>{
@@ -53,7 +53,7 @@ const filterData = (users,searchkey) =>{
          
    const searchkey = e.currentTarget.value;
   
-   axios.get("http://localhost:8070/user/allprof").then((res)=>{
+   axios.get("https://research-management-tool-ym.herokuapp.com/user/allprof").then((res)=>{
   
            if(res.data.success){
                

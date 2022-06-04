@@ -51,7 +51,7 @@ export default function TopicList()  {
     useEffect(()=>{
 
         
-        axios.get("http://localhost:8070/topic").then((res)=>{
+        axios.get("https://research-management-tool-ym.herokuapp.com/topic").then((res)=>{
             setRequest(res.data.topicRouter);
             }).catch((err)=>{
                 alert(err.message);

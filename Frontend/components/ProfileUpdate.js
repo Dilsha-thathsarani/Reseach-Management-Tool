@@ -44,7 +44,7 @@ onSubmit = (e) =>{
         
     }
 
-    axios.patch(`http://localhost:8070/user/update/${id}`,data).then((res) =>{
+    axios.patch(`https://research-management-tool-ym.herokuapp.com/user/update/${id}`,data).then((res) =>{
         
             alert("Successfully Updated !");
             
@@ -82,7 +82,7 @@ componentDidMount(){
 
     const id = this.props.match.params.id;
 
-    axios.get(`http://localhost:8070/user/infor/${id}`).then((res)=>{
+    axios.get(`https://research-management-tool-ym.herokuapp.com/user/infor/${id}`).then((res)=>{
        
             this.setState({
               name : res.data.name,

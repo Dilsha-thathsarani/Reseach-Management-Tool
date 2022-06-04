@@ -14,10 +14,16 @@ const PORT = process.env.PORT || 8070;
 //Connect data base
 connectDB();
 
+
+
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.get("/", (req, res) => {
+  res.json("Server Started");
+})
 
 // Document/ presentation Evaluate Route
 import evaluationRouter from "./routes/EvaluationRoute.js";

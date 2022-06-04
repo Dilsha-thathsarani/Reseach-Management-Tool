@@ -40,7 +40,7 @@ export default function StudentGroup() {
     };
 
     axios
-      .post("http://localhost:8070/stdGroup", newGroup)
+      .post("https://research-management-tool-ym.herokuapp.com/stdGroup", newGroup)
       .then(() => {
         Store.addNotification({
           title: "Group Saved Successfully.",

@@ -63,7 +63,7 @@ export default function EvaluateTopic()  {
         setEvaluation(localStorage.getItem('Evaluation'));
         setid(localStorage.getItem('ID'));
 
-        const path = "http://localhost:8070/topic/group/"+localStorage.getItem('groupID');
+        const path = "https://research-management-tool-ym.herokuapp.com/topic/group/"+localStorage.getItem('groupID');
         console.log(path);
 
         
@@ -97,7 +97,7 @@ export default function EvaluateTopic()  {
             Evaluation,
         }
 
-        let path = "http://localhost:8070/evaluatedTopic/"+id;
+        let path = "https://research-management-tool-ym.herokuapp.com/evaluatedTopic/"+id;
 
         axios.put(path,newTopic).then(()=>{
 

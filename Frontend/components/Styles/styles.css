@@ -10,6 +10,14 @@
   padding: 70px 150px;
 }
 
+.img-side{
+  position: inline;
+  width: 150px;
+  height: 150px;
+  margin-left: -110px;
+  margin-top: -80px;
+}
+
 .right_container {
   background-color: #ffffff;
   color: black;
