@@ -107,14 +107,14 @@ export default function AllStudentGroup() {
                 // marginLeft="80%"
               />
 
-              <div className="bottom-t-container">
+              {/* <div className="bottom-t-container">
                 <label className="bottom-t" style={{ color: "#FF5631" }}>
                   {" "}
                   SLIIT
                 </label>{" "}
                 <label className="bottom-t"> Research</label> <br />
                 <label className="bottom-t"> Management Tool</label>
-              </div>
+              </div> */}
             </div>
           </section>
         </div>
