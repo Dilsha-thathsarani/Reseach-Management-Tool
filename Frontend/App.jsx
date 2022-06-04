@@ -49,6 +49,7 @@ import ProfileUpdate from "./components/ProfileUpdate";
 import AllUsers from "./components/AllUsers";
 import PanelMembers from "./components/CheckPanelMembers";
 import SelectPanelMembers from "./components/SelectPanelMembers";
+import AcceptRequest from "./components/AcceptRequest.js";
 
 function App() {
 
@@ -133,6 +134,7 @@ const logout=async ()=>{
         />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
+        <Route path="/pending" component={isAdmin ? AcceptRequest : NotFound} />
         <Route path="/SubmitTopic" component={SubmitTopic} />
         <Route path="/EvaluateTopic" component={EvaluateTopic} />
         <Route path="/EvaluatedTopicList" component={EvaluatedTopicList} />

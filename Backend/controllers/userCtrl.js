@@ -42,6 +42,25 @@ const userCtrl={
         }
     } ,
 
+    accept: async (req, res) =>{
+        try {
+            const {name, email,password,mobile,user_role,
+                research_area,reg_number} = req.body;
+
+            const newUser = new Users({
+                name, email,password,mobile,user_role,
+                research_area,reg_number
+            })
+            const token = jwt.sign({id:newUser._id}, process.env.REFRESH_TOKEN_SECRET, {expiresIn:"1h"} )
+            await newUser.save()
+            res.json({result: newUser, token,msg:"Account approved!"})
+    
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+        
+    },
+
     login: async (req, res) => {
         try {
             const {email, password} = req.body
@@ -108,13 +127,11 @@ const userCtrl={
             return res.status(500).json({msg: err.message})
         }
     },
-
     allusers:async(req,res)=>{
-
         Users.find().exec((err,Users)=>{
               if(err){
                   return res.status(400).json({
-                     error:err
+                  error:err
                  });
              }
                 return res.status(200).json({
@@ -123,7 +140,6 @@ const userCtrl={
               });
           });
       },
-
       panelMembers:async(req,res)=>{
         let r_area=req.params.id;
         Users.find({research_area:r_area,user_role:"Panel Member"}).exec((err,Users)=>{
@@ -137,22 +153,12 @@ const userCtrl={
                   existingUser:Users
               });
           });
-      },
-
-    logout: async () => {
-        try {
-            localStorage.clear();
-            return res.json({msg: "Logged out."})
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
     },
-
 }
 
 //Email address type validation
 function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
 

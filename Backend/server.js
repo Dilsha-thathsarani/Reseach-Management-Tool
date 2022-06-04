@@ -45,6 +45,9 @@ app.use("/evaluatedTopic",evaluatedTopicRouter);
 import userRouter from "./routes/userRoute.js";
 app.use("/user", userRouter);
 
+import pendinguserRouter from "./routes/pendinguserRoute.js";
+app.use("/pendinguser", pendinguserRouter);
+
 import panelRouter from "./routes/PanelMemberRoute.js";
 app.use("/panel", panelRouter);
 

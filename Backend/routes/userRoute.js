@@ -7,6 +7,8 @@ import userCtrl from '../controllers/userCtrl.js';
 
 router.post('/register', userCtrl.register)
 
+router.post('/accept', userCtrl.accept)
+
 router.post('/login', userCtrl.login)
 
 router.get('/infor/:id',userCtrl.getUserInfor)
@@ -21,6 +23,5 @@ router.delete('/delete/:id', userCtrl.deleteUser)
 
 router.patch('/update/:id', userCtrl.updateUser)
 
-router.get('/logout', userCtrl.logout)
 
 export default router;

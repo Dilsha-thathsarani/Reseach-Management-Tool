@@ -51,34 +51,6 @@ export default function Profile() {
     setData({...data, [name]:value, err:'', success: ''})
 }
 
-
-    const changeAvatar = async(e) => {
-        e.preventDefault()
-        try {
-            const file = e.target.files[0]
-
-            if(!file) return setData({...data, err: "No files were uploaded." , success: ''})
-
-            if(file.size > 1024 * 1024)
-                return setData({...data, err: "Size too large." , success: ''})
-
-            if(file.type !== 'image/jpeg' && file.type !== 'image/png')
-                return setData({...data, err: "File format is incorrect." , success: ''})
-
-            let formData =  new FormData()
-            formData.append('file', file)
-
-            setLoading(true)
-            const res = await axios.post('http//:localhost:8070/api/upload_avatar', formData)
-
-            setLoading(false)
-            setAvatar(res.data.url)
-            
-        } catch (err) {
-            setData({...data, err: err.response.data.msg , success: ''})
-        }
-    }
-
     async function updateInfor() {
         try {
             axios.patch(`http://localhost:8070/user/update/${user._id}`, {
@@ -86,7 +58,6 @@ export default function Profile() {
                 email: email ? email : user.email,
                 avatar: avatar ? avatar : user.avatar,
                 mobile:mobile ? mobile:user.mobile,
-                
                
             })
 
@@ -118,10 +89,6 @@ export default function Profile() {
     const handleUpdate = () => {
          updateInfor()   
     }
-
-
-
-
 
   return (
     <div className="topic-container">
@@ -231,6 +198,8 @@ export default function Profile() {
                <center> <button className="l-btn-accept" style={{width:"200px",fontWeight:"bold"}}
                 onClick={updateInfor}
                 >Update</button> </center>
+
+        
             </div>
             <div className="bottom-profile">
                         <label className="bottom-t" style={{color:"#FF5631"}}> SLIIT</label> <label className="bottom-t"> Research</label> <br />
