@@ -134,7 +134,6 @@ function App() {
         <Route path="/EditTopic" component={EditTopic} />
         <Route path="/SubmitDocs" component={SubmitDocs} />
         <Route path="/AllStudentGroup" component={AllStudentGroup} />
-
         <Route path="/AllCreateTypes" component={AllCreateTypes} />
         <Route path="/MarkingList" component={MarkingList} />
         <Route path="/EditMarking" component={EditMarking} />
