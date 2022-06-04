@@ -1,8 +1,5 @@
 import React, {useState,useEffect} from "react";
 import axios from 'axios';
-//import emailjs from 'emailjs-com'
-
-
 
 export default function SelectMember() {
     
@@ -12,19 +9,14 @@ export default function SelectMember() {
     const [ResearchArea, setResearchArea] = useState("");
     const [ResearchTopic, setResearchTopic] = useState("");
 
-   
-
+  
     useEffect(()=>{
-
-        
+  
         setGroupId(localStorage.getItem('GroupId'));
         setResearchArea(localStorage.getItem('ResearchArea'));
         setResearchTopic(localStorage.getItem('ResearchTopic'));
 
     
-            
-  
-
     },[])
 
     async function getMember(){      
