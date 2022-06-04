@@ -89,58 +89,6 @@ function App() {
     }
   }, [token]);
 
-
-  const [token, setToken] = useState(false)
-  const [isLogged, setIsLogged] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [issupervisor, setIsSupervisor] = useState(false)
-  const [ispanelmember, setIsPanelMember] = useState(false)
-  const [iscosupervisor, setIsCoSupervisor] = useState(false)
-  
-
-  const refreshToken = async () =>{
-      const res = localStorage.getItem("userAuthToken")
-      setToken(res)
-  }
-  useEffect(() =>{
-    const firstLogin = localStorage.getItem('firstLogin')
-    if(firstLogin) refreshToken()
-
-    if(token){
-      const getUser = async () =>{
-          try {
-
-              const res =(JSON.parse(localStorage.getItem("user")).user_role);
-              
-             
-              setIsLogged(true)
-              res == "Admin" ? setIsAdmin(true): setIsAdmin(false)
-              res== "Panel Member" ? setIsPanelMember(true): setIsPanelMember(false)
-              res == "Supervisor" ? setIsSupervisor(true): setIsSupervisor(false)
-              res == "Co-Supervisor" ? setIsCoSupervisor(true): setIsCoSupervisor(false)
-
-          } catch (err) {
-              alert(err.response.data.msg)
-          }
-      }
-
-      getUser()
-      
-  }
-},[token])
-  
-const logout=async ()=>{
-  localStorage.clear()
-  setToken(false)
-  setIsLogged(false)
-  setIsAdmin(false)
-  setIsSupervisor(false)
-  setIsPanelMember(false)
-  setIsCoSupervisor(false)
-}
- 
-
-
   return (
     <div>
       <Header />
